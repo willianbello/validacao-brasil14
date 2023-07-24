@@ -6,14 +6,14 @@ Suporte para o Angular 12, 13, 14, 15 e 16
 
 |  Versão Angular |  Versão Validacao-Brasil Compatível  |
 | ------------ | ------------ |
-| 12  | 12.2.1  |
-| 13  | 13.3.0  |
+| 12  | 12.2.2  |
+| 13  | 13.3.3  |
 | 14  | 14.2.1  |
 | 15  | 15.2.0  |
 | 16  | 16.1.0  |
 
 
-Este projeto foi testado somente com Angular 12, 13, 14, 15 e 16 puro, mas não tem nenhuma dependência fora do próprio framework,
+Este projeto foi testado somente com Angular 12, 13, 14, 15 e 16 puro e com material, mas não tem nenhuma dependência fora do próprio framework,
 todo o código foi criado com Typescript e Javascript puro para evitar outras dependências.
 
 Atualmente tem as seguintes opções:

@@ -1,72 +1,57 @@
-<form [formGroup]="form">
-  <div style="display: flex; justify-content: space-around;">
-    <div>
-      <p>CPF</p>
-      <input type="text" formControlName="cpf" placeholder="cpf" bCpf>
-      <br><br>
-      <span *ngIf="form.get('cpf')?.hasError('cpf')">cpf inválido</span><br>
-      <span *ngIf="form.get('cpf')?.hasError('required')">cpf é obrigatório</span>
+<form [formGroup]="form" style="width: 70%; margin: auto; margin-top: 50px;">
+  <div style="display: flex; justify-content: space-around; flex-wrap: wrap; width: 100%;">
     
-      <br><br><br><br>
-    
-      <p>CNPJ</p>
-      <input type="text" formControlName="cnpj" placeholder="cnpj" bCnpj>
-      <br><br>
-      <span *ngIf="form.get('cnpj')?.hasError('cnpj')">cnpj inválido</span><br>
-      <span *ngIf="form.get('cnpj')?.hasError('required')">cnpj é obrigatório</span>
+    <div style="margin-top: 20px; width: 33%; text-align: center;">
+      <mat-form-field appearance="outline">
+        <mat-label>CPF</mat-label>
+        <input matInput placeholder="CPF" formControlName="cpf">
+        <mat-error *ngIf="form.get('cpf')?.hasError('cpf')">CPF inválido</mat-error>
+        <mat-error *ngIf="form.get('cpf')?.hasError('required')">CPF é obrigatório</mat-error>
+      </mat-form-field>
     </div>
 
-    <div>
-      <p>Celular</p>
-      <input type="text" formControlName="celular" placeholder="celular" bCelular [ddd]="true">
-      <br><br>
-      <span *ngIf="form.get('celular')?.hasError('celular')">celular inválido</span><br>
-      <span *ngIf="form.get('celular')?.hasError('required')">celular é obrigatório</span>
-      <span *ngIf="form.get('celular')?.hasError('nove')">celular precisa começar com 9</span>
-    
-      <br><br><br><br>
-      <p>Telefone</p>
-      <input type="text" formControlName="telefone" placeholder="telefone" bTelefone>
-      <br><br>
-      <span *ngIf="form.get('telefone')?.hasError('telefone')">telefone inválido</span><br>
-      <span *ngIf="form.get('telefone')?.hasError('required')">telefone é obrigatório</span>
+    <div style="margin-top: 20px; width: 33%; text-align: center;">
+      <mat-form-field appearance="outline">
+        <mat-label>Celular</mat-label>
+        <input matInput placeholder="Celular" formControlName="celular">
+        <mat-error *ngIf="form.get('celular')?.hasError('celular')">Celular inválido</mat-error>
+        <mat-error *ngIf="form.get('celular')?.hasError('nove')">Celular precisa começar com 9</mat-error>
+        <mat-error *ngIf="form.get('celular')?.hasError('required')">Celular é obrigatório</mat-error>
+      </mat-form-field>
     </div>
 
-    <div>
-      <p>CEP</p>
-      <input type="text" formControlName="cep" placeholder="cep" id="cep" bCep>
-      <br><br>
-      <span *ngIf="form.get('cep')?.hasError('cep')">cep inválido</span><br>
-      <span *ngIf="form.get('cep')?.hasError('required')">cep é obrigatório</span>
+    <div style="width: 100%; text-align: center;">
+      <button type="button" [disabled]="form.invalid" mat-raised-button color="primary">Form Válido</button>
     </div>
   </div>
 
-  <br><br>
-  <p style="text-align: center;">
-    PIPES
-  </p>
-  <br><br>
-  <div style="display: flex; justify-content: space-around;">
-    <div>
-      cpf: 48103288055 | {{ '48103288055' | cpf }}
-      <br><br>
-      cnpj: 76601670000125 | {{ '76601670000125' | cnpj }}
-      <br><br>
-      cep: 77064202 | {{ '77064202' | cep }}
-    </div>
-    <div>
-      telefone: 5131234567 | {{ '5131234567' | telefone }}
-      <br><br>
-      telefone: 05131234567 | {{ '05131234567' | telefone:true:true }}
-      <br><br>
-      telefone: 31234567 | {{ '31234567' | telefone:false }}
-    </div>
-    <div>
-      celular: 51991234567 | {{ '51991234567' | celular }}
-      <br><br>
-      celular: 051991234567 | {{ '051991234567' | celular:true:true }}
-      <br><br>
-      celular: 991234567 | {{ '991234567' | celular:false }}
-    </div>
-  </div>
 </form>
+
+<br><br>
+<p style="text-align: center;">
+  PIPES
+</p>
+<br><br>
+<div style="display: flex; justify-content: space-around;">
+  <div>
+    cpf: 48103288055 | {{ '48103288055' | cpf }}
+    <br><br>
+    cnpj: 76601670000125 | {{ '76601670000125' | cnpj }}
+    <br><br>
+    cep: 77064202 | {{ '77064202' | cep }}
+  </div>
+  <div>
+    telefone: 5131234567 | {{ '5131234567' | telefone }}
+    <br><br>
+    telefone: 05131234567 | {{ '05131234567' | telefone:true:true }}
+    <br><br>
+    telefone: 31234567 | {{ '31234567' | telefone:false }}
+  </div>
+  <div>
+    celular: 51991234567 | {{ '51991234567' | celular }}
+    <br><br>
+    celular: 051991234567 | {{ '051991234567' | celular:true:true }}
+    <br><br>
+    celular: 991234567 | {{ '991234567' | celular:false }}
+  </div>
+</div>

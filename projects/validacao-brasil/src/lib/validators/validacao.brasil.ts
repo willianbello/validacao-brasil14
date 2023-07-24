@@ -9,34 +9,31 @@ export class ValidacaoBrasil {
             const valorCpf = control.value.toString();
             const numeroCpf = valorCpf.replace(/([^0-9])/g, '');
 
-            if (control.touched) {
+            if (!required && (numeroCpf.length == 0 || !numeroCpf)) {
+                return null;
+            }
 
-                if (!required && (numeroCpf.length == 0 || !numeroCpf)) {
-                    return null;
-                }
-                
-                if (required && (numeroCpf.length == 0 || !numeroCpf)) {
-                    return { required: true };
-                }
+            if (required && (numeroCpf.length == 0 || !numeroCpf)) {
+                return { required: true };
+            }
 
-                if (
-                    numeroCpf.length != 11
-                    || [
-                        '00000000000',
-                        '11111111111',
-                        '22222222222',
-                        '33333333333',
-                        '44444444444',
-                        '55555555555',
-                        '66666666666',
-                        '77777777777',
-                        '88888888888',
-                        '99999999999',
-                    ].filter(numerosTeste => numerosTeste == numeroCpf).length > 0
-                    || cpfInvalido(numeroCpf)
-                ) {
-                    return { cpf: true };
-                }
+            if (
+                numeroCpf.length != 11
+                || [
+                    '00000000000',
+                    '11111111111',
+                    '22222222222',
+                    '33333333333',
+                    '44444444444',
+                    '55555555555',
+                    '66666666666',
+                    '77777777777',
+                    '88888888888',
+                    '99999999999',
+                ].filter(numerosTeste => numerosTeste == numeroCpf).length > 0
+                || cpfInvalido(numeroCpf)
+            ) {
+                return { cpf: true };
             }
 
             return null;
@@ -50,35 +47,33 @@ export class ValidacaoBrasil {
             const valorCnpj = control.value.toString();
             const numeroCnpj = valorCnpj.replace(/([^0-9])/g, '');
 
-            if (control.touched) {
-
-                if (!required && (numeroCnpj.length == 0 || !numeroCnpj)) {
-                    return null;
-                }
-
-                if (required && (numeroCnpj.length == 0 || !numeroCnpj)) {
-                    return { required: true };
-                }
-
-                if (
-                    numeroCnpj.length != 14
-                    || [
-                        '00000000000000',
-                        '11111111111111',
-                        '22222222222222',
-                        '33333333333333',
-                        '44444444444444',
-                        '55555555555555',
-                        '66666666666666',
-                        '77777777777777',
-                        '88888888888888',
-                        '99999999999999',
-                    ].filter(numerosTeste => numerosTeste == numeroCnpj).length > 0
-                    || cnpjInvalido(numeroCnpj)
-                ) {
-                    return { cnpj: true };
-                }
+            if (!required && (numeroCnpj.length == 0 || !numeroCnpj)) {
+                return null;
             }
+
+            if (required && (numeroCnpj.length == 0 || !numeroCnpj)) {
+                return { required: true };
+            }
+
+            if (
+                numeroCnpj.length != 14
+                || [
+                    '00000000000000',
+                    '11111111111111',
+                    '22222222222222',
+                    '33333333333333',
+                    '44444444444444',
+                    '55555555555555',
+                    '66666666666666',
+                    '77777777777777',
+                    '88888888888888',
+                    '99999999999999',
+                ].filter(numerosTeste => numerosTeste == numeroCnpj).length > 0
+                || cnpjInvalido(numeroCnpj)
+            ) {
+                return { cnpj: true };
+            }
+
             return null;
         }
     }
@@ -90,34 +85,32 @@ export class ValidacaoBrasil {
             const valorCep = control.value.toString();
             const numeroCep = valorCep.replace(/([^0-9])/g, '');
 
-            if (control.touched) {
-
-                if (!required && (numeroCep.length == 0 || !numeroCep)) {
-                    return null;
-                }
-
-                if (required && (numeroCep.length == 0 || !numeroCep)) {
-                    return { required: true };
-                }
-
-                if (
-                    numeroCep.length != 8
-                    || [
-                        '00000000',
-                        '11111111',
-                        '22222222',
-                        '33333333',
-                        '44444444',
-                        '55555555',
-                        '66666666',
-                        '77777777',
-                        '88888888',
-                        '99999999',
-                    ].filter(numerosTeste => numerosTeste == numeroCep).length > 0
-                ) {
-                    return { cep: true };
-                }
+            if (!required && (numeroCep.length == 0 || !numeroCep)) {
+                return null;
             }
+
+            if (required && (numeroCep.length == 0 || !numeroCep)) {
+                return { required: true };
+            }
+
+            if (
+                numeroCep.length != 8
+                || [
+                    '00000000',
+                    '11111111',
+                    '22222222',
+                    '33333333',
+                    '44444444',
+                    '55555555',
+                    '66666666',
+                    '77777777',
+                    '88888888',
+                    '99999999',
+                ].filter(numerosTeste => numerosTeste == numeroCep).length > 0
+            ) {
+                return { cep: true };
+            }
+
             return null;
         }
     }
@@ -139,26 +132,24 @@ export class ValidacaoBrasil {
             const valorTelefone = control.value.toString();
             const numeroTelefone = valorTelefone.replace(/([^0-9])/g, '');
 
-            if (control.touched) {
-
-                if (!required && (numeroTelefone.length == 0 || !numeroTelefone)) {
-                    return null;
-                }
-
-                if (required && (numeroTelefone.length == 0 || !numeroTelefone)) {
-                    return { required: true };
-                }
-
-                if (comDDD && !digitosDDD3 && numeroTelefone.length != 10) {
-                    return { telefone: true };
-                }
-                if (comDDD && digitosDDD3 && numeroTelefone.length != 11) {
-                    return { telefone: true };
-                }
-                if (!comDDD && numeroTelefone.length != 8) {
-                    return { telefone: true };
-                }
+            if (!required && (numeroTelefone.length == 0 || !numeroTelefone)) {
+                return null;
             }
+
+            if (required && (numeroTelefone.length == 0 || !numeroTelefone)) {
+                return { required: true };
+            }
+
+            if (comDDD && !digitosDDD3 && numeroTelefone.length != 10) {
+                return { telefone: true };
+            }
+            if (comDDD && digitosDDD3 && numeroTelefone.length != 11) {
+                return { telefone: true };
+            }
+            if (!comDDD && numeroTelefone.length != 8) {
+                return { telefone: true };
+            }
+
             return null;
         }
     }
@@ -180,37 +171,35 @@ export class ValidacaoBrasil {
             const valorCelular = control.value.toString();
             const numeroCelular = valorCelular.replace(/([^0-9])/g, '');
 
-            if (control.touched) {
-
-                if (!required && (numeroCelular.length == 0 || !numeroCelular)) {
-                    return null;
-                }
-                if (required && (numeroCelular.length == 0 || !numeroCelular)) {
-                    return { required: true };
-                }
-
-                if (comDDD && digitosDDD3 && numeroCelular.length >= 4 && numeroCelular[3] != 9) {
-                    return { nove: true };
-                }
-
-                if (comDDD && !digitosDDD3 && numeroCelular.length >= 3 && numeroCelular[2] != 9) {
-                    return { nove: true };
-                }
-
-                if (!comDDD && numeroCelular.length >= 1 && numeroCelular[0] != 9) {
-                    return { nove: true };
-                }
-
-                if (comDDD && !digitosDDD3 && numeroCelular.length != 11) {
-                    return { celular: true };
-                }
-                if (comDDD && digitosDDD3 && numeroCelular.length != 12) {
-                    return { celular: true };
-                }
-                if (!comDDD && numeroCelular.length != 9) {
-                    return { celular: true };
-                }
+            if (!required && (numeroCelular.length == 0 || !numeroCelular)) {
+                return null;
             }
+            if (required && (numeroCelular.length == 0 || !numeroCelular)) {
+                return { required: true };
+            }
+
+            if (comDDD && digitosDDD3 && numeroCelular.length >= 4 && numeroCelular[3] != 9) {
+                return { nove: true };
+            }
+
+            if (comDDD && !digitosDDD3 && numeroCelular.length >= 3 && numeroCelular[2] != 9) {
+                return { nove: true };
+            }
+
+            if (!comDDD && numeroCelular.length >= 1 && numeroCelular[0] != 9) {
+                return { nove: true };
+            }
+
+            if (comDDD && !digitosDDD3 && numeroCelular.length != 11) {
+                return { celular: true };
+            }
+            if (comDDD && digitosDDD3 && numeroCelular.length != 12) {
+                return { celular: true };
+            }
+            if (!comDDD && numeroCelular.length != 9) {
+                return { celular: true };
+            }
+
             return null;
         }
     }

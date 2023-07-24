@@ -1,6 +1,6 @@
 {
   "name": "validacao-brasil",
-  "version": "14.2.1",
+  "version": "14.2.2",
   "author": "Willian Bello",
   "description": "Este projeto foi criado para validações de formularios no brasil com uso de cpf, cnpj, cep, telefone e celular. Não há dependências fora do Angular e é muito leve e fácil de usar",
   "keywords": [

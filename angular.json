@@ -96,6 +96,37 @@
           }
         }
       }
+    },
+    "validacao-brasil": {
+      "projectType": "library",
+      "root": "projects/validacao-brasil",
+      "sourceRoot": "projects/validacao-brasil/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/validacao-brasil/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/validacao-brasil/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/validacao-brasil/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/validacao-brasil/src/test.ts",
+            "tsConfig": "projects/validacao-brasil/tsconfig.spec.json",
+            "karmaConfig": "projects/validacao-brasil/karma.conf.js"
+          }
+        }
+      }
     }
   }
 }

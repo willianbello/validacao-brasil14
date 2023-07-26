@@ -1,20 +1,30 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 import { Utils } from '../../utils/utils';
 
 @Directive({
-  selector: '[bCpf]'
+  selector: '[bData]'
 })
-export class CpfDirective {
+export class DataDirective {
+
+  @Input() ano4Digitos: boolean = true;
 
   @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
     this.keyDown(event)
   }
 
-  tamMax: number = 11;
+  tamMax: number = 6;
 
   constructor(
     private el: ElementRef,
   ) { }
+
+  ngOnInit() {
+    if (this.ano4Digitos) {
+      this.tamMax = 8;
+    } else {
+      this.tamMax = 6;
+    }
+  }
 
   keyDown(event: KeyboardEvent) {
 
@@ -23,7 +33,7 @@ export class CpfDirective {
     if ((Utils.soNumeros(event)) && ((numeros.length) < this.tamMax) || Utils.backSpace(event)) {
 
       if (numeros) {
-        this.el.nativeElement.value = Utils.addMascaraCpf(numeros, this.tamMax);
+        this.el.nativeElement.value = Utils.addMascaraData(numeros, this.tamMax);
       }
     } else {
       event.preventDefault();

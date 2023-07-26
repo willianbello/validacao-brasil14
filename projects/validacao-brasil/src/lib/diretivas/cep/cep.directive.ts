@@ -20,7 +20,7 @@ export class CepDirective {
 
     const numeros = Utils.retornaSoNumero(this.el.nativeElement.value);
 
-    if ((Utils.soNumeros(event)) && ((numeros.length) < this.tamMax) || Utils.setasEBackSpace(event)) {
+    if ((Utils.soNumeros(event)) && ((numeros.length) < this.tamMax) || Utils.backSpace(event)) {
 
       if (numeros) {
         this.el.nativeElement.value = Utils.addMascaraCep(numeros, this.tamMax);

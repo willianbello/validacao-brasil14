@@ -1,10 +1,10 @@
 <form [formGroup]="form" style="width: 70%; margin: auto; margin-top: 50px;">
   <div style="display: flex; justify-content: space-around; flex-wrap: wrap; width: 100%;">
-    
+
     <div style="margin-top: 20px; width: 33%; text-align: center;">
       <mat-form-field appearance="outline">
         <mat-label>CPF</mat-label>
-        <input matInput placeholder="CPF" formControlName="cpf">
+        <input matInput placeholder="CPF" formControlName="cpf" bCpf>
         <mat-error *ngIf="form.get('cpf')?.hasError('cpf')">CPF inválido</mat-error>
         <mat-error *ngIf="form.get('cpf')?.hasError('required')">CPF é obrigatório</mat-error>
       </mat-form-field>
@@ -20,7 +20,43 @@
       </mat-form-field>
     </div>
 
-    <div style="width: 100%; text-align: center;">
+    <div style="margin-top: 20px; width: 33%; text-align: center;">
+      <mat-form-field appearance="outline">
+        <mat-label>Só Numero</mat-label>
+        <input matInput placeholder="Celular" formControlName="soNumeros" bSoNumeroSemEspaco>
+      </mat-form-field>
+    </div>
+
+    <div style="margin-top: 20px; width: 33%; text-align: center;">
+      <mat-form-field appearance="outline">
+        <mat-label>Só Letras com Espaço</mat-label>
+        <input matInput placeholder="Celular" formControlName="soLetrasComEspaco" bSoLetrasComEspaco>
+      </mat-form-field>
+    </div>
+
+    <div style="margin-top: 20px; width: 33%; text-align: center;">
+      <mat-form-field appearance="outline">
+        <mat-label>Data</mat-label>
+        <input matInput placeholder="Data" formControlName="data" bData [ano4Digitos]="true">
+        <mat-error *ngIf="form.get('data')?.hasError('required')">Data é obrigatória</mat-error>
+        <mat-error *ngIf="form.get('data')?.hasError('data')">Data Inválida </mat-error>
+        <mat-error *ngIf="form.get('data')?.hasError('min')">Data precisa ser maior que {{ dataMin }}</mat-error>
+        <mat-error *ngIf="form.get('data')?.hasError('max')">Data precisa ser menor que {{ dataMax }}</mat-error>
+        <mat-error *ngIf="form.get('data')?.hasError('range')">Data precisa ser maior que {{ dataMin }} e menor que {{
+          dataMax }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div style="margin-top: 20px; width: 33%; text-align: center;">
+      <mat-form-field appearance="outline">
+        <mat-label>Titulo Eleitor</mat-label>
+        <input matInput placeholder="Titulo Eleitor" formControlName="titulo" bTituloEleitor>
+        <mat-error *ngIf="form.get('titulo')?.hasError('required')">Titulo é obrigatório</mat-error>
+        <mat-error *ngIf="form.get('titulo')?.hasError('titulo')">Titulo inválido</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div style="width: 100%; text-align: center; margin-top: 30px;">
       <button type="button" [disabled]="form.invalid" mat-raised-button color="primary">Form Válido</button>
     </div>
   </div>

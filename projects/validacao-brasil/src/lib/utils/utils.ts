@@ -17,6 +17,15 @@ export class Utils {
         return /([0-9]|\,)/g.test(event.key) ? true : false;
     }
 
+    static backSpace(event: KeyboardEvent) {
+        switch (event.key) {
+            case 'Backspace':
+                return true
+            default:
+                return false;
+        }
+    }
+
     static setasEBackSpace(event: KeyboardEvent) {
         switch (event.key) {
             case 'Backspace':
@@ -24,6 +33,22 @@ export class Utils {
             case 'ArrowLeft':
                 return true
             case 'ArrowRight':
+                return true
+            default:
+                return false;
+        }
+    }
+
+    static setasEBackSpaceESpace(event: KeyboardEvent) {
+        
+        switch (event.key) {
+            case 'Backspace':
+                return true
+            case 'ArrowLeft':
+                return true
+            case 'ArrowRight':
+                return true
+            case ' ':
                 return true
             default:
                 return false;
@@ -138,5 +163,31 @@ export class Utils {
         }
 
         return numeros;
+    }
+
+    static addMascaraData(data: string, tamMax: number) {
+
+        if (data.length < tamMax) {
+            data =
+                data
+                    .replace(/\D/g, '')
+                    .replace(/(\d{2})(\d)/, '$1/$2')
+                    .replace(/(\d{2})(\d)/, '$1/$2');
+        }
+
+        return data;
+    }
+
+    static addMascaraTituloEleitor(titulo: string, tamMax: number) {
+
+        if (titulo.length < tamMax) {
+            titulo =
+                titulo
+                    .replace(/\D/g, '')
+                    .replace(/(\d{4})(\d)/, '$1 $2')
+                    .replace(/(\d{4})(\d)/, '$1 $2');
+        }
+
+        return titulo;
     }
 }

@@ -1,16 +1,16 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 import { Utils } from '../../utils/utils';
 
 @Directive({
-  selector: '[bCpf]'
+  selector: '[bSoNumeroSemEspaco]'
 })
-export class CpfDirective {
+export class SoNumeroSemEspacoDirective {
 
   @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
     this.keyDown(event)
   }
 
-  tamMax: number = 11;
+  @Input() tamMax: number = 99999;
 
   constructor(
     private el: ElementRef,
@@ -20,11 +20,8 @@ export class CpfDirective {
 
     const numeros = Utils.retornaSoNumero(this.el.nativeElement.value);
 
-    if ((Utils.soNumeros(event)) && ((numeros.length) < this.tamMax) || Utils.backSpace(event)) {
-
-      if (numeros) {
-        this.el.nativeElement.value = Utils.addMascaraCpf(numeros, this.tamMax);
-      }
+    if ((Utils.soNumeros(event)) && ((numeros.length) < this.tamMax) || Utils.setasEBackSpace(event)) {
+      return;
     } else {
       event.preventDefault();
       event.stopPropagation();

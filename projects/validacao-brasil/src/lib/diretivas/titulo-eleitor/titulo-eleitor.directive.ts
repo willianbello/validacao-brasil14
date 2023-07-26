@@ -2,15 +2,15 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 import { Utils } from '../../utils/utils';
 
 @Directive({
-  selector: '[bCpf]'
+  selector: '[bTituloEleitor]'
 })
-export class CpfDirective {
+export class TituloEleitorDirective {
 
   @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
     this.keyDown(event)
   }
 
-  tamMax: number = 11;
+  tamMax: number = 12;
 
   constructor(
     private el: ElementRef,
@@ -23,7 +23,7 @@ export class CpfDirective {
     if ((Utils.soNumeros(event)) && ((numeros.length) < this.tamMax) || Utils.backSpace(event)) {
 
       if (numeros) {
-        this.el.nativeElement.value = Utils.addMascaraCpf(numeros, this.tamMax);
+        this.el.nativeElement.value = Utils.addMascaraTituloEleitor(numeros, this.tamMax);
       }
     } else {
       event.preventDefault();

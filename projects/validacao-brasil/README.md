@@ -6,8 +6,8 @@ Suporte para o Angular 12, 13, 14, 15 e 16
 
 |  Versão Angular |  Versão Validacao-Brasil Compatível  |
 | ------------ | ------------ |
-| 12  | 12.2.2  |
-| 13  | 13.3.3  |
+| 12  | 12.2.4  |
+| 13  | 13.3.4  |
 | 14  | 14.2.1  |
 | 15  | 15.2.0  |
 | 16  | 16.1.0  |
@@ -24,6 +24,8 @@ CNPJ
 CEP
 Telefone
 Celular
+Titulo Eleitor
+Data
 
 ### Pipes:
 CPF
@@ -33,11 +35,21 @@ Telefone
 Celular
 
 ### Diretivas:
-CPF
-CNPJ
-CEP
-Telefone
-Celular
+
+
+    CPF
+    CNPJ
+    CEP
+    Telefone
+    Celular
+    Titulo Eleitor
+    Data
+    SoNumeroSemEspaco  =>  bSoNumeroSemEspaco
+    SoNumeroComEspaco =>   bSoNumeroComEspaco
+    bSoLetrasSemEspaco  => bSoLetrasSemEspaco
+    bSoLetrasComEspaco  => bSoLetrasComEspaco
+
+diretivas de só numero ou só letra não permitem que seja digitado no input qualquer valor que não seja numero ou letra.
 
 ## Importação
     import { NgModule } from '@angular/core';
@@ -71,11 +83,15 @@ Celular
     import { ValidacaoBrasil } from 'validacao-brasil';
     
     this.form = this.fb.group({
-    	cpf: ['', ValidacaoBrasil.cpf()],
-    	cnpj: ['', ValidacaoBrasil.cnpj()],
-    	cep: ['', ValidacaoBrasil.cep()],
-    	telefone: ['', ValidacaoBrasil.telefone(false)],
-    	celular: ['', ValidacaoBrasil.celular(true, true, true)]
+		cpf: ['', ValidacaoBrasil.cpf()],
+		soNumeros: [''],
+		soLetrasComEspaco: [''],
+		data: ['', ValidacaoBrasil.data(true, true, this.dataMin, this.dataMax)],
+		titulo: ['', ValidacaoBrasil.tituloEleitor(false)],
+		cnpj: ['', ValidacaoBrasil.cnpj()],
+		cep: ['', ValidacaoBrasil.cep()],
+		telefone: ['', ValidacaoBrasil.telefone(false)],
+		celular: ['', ValidacaoBrasil.celular(true)]
     })
 
 o primeiro parâmetro de todas as validações é se ele é "required" ou não.
@@ -89,6 +105,8 @@ Exemplo:
     cep => { cep: true }
     telefone => { telefone: true }
     celular => { celular: true }
+	data => { data: true }, { min: true }, { max: true }, { range: true }
+	titulo => { titulo: true }
 
 OBS: para o celular há uma validação adicional que é a verificação de começar com 9
 será enviado o objeto: *{ nove: true }* quando ele não começar com 9.
@@ -114,30 +132,122 @@ o ddd tem 3 dígitos?
     celular: 51991234567 | {{ '51991234567' | celular }}
     celular: 051991234567 | {{ '051991234567' | celular:true:true }}
     celular: 991234567 | {{ '991234567' | celular:false }}
-  
-      <div>
-          <p>Celular</p>
-          <input type="text" formControlName="celular" 
-     placeholder="celular" bCelular [ddd]="false" [ddd3Digitos]="true">
-          
-          <span *ngIf="form.get('celular')?.hasError('celular')">celular inválido</span><br>
-          <span *ngIf="form.get('celular')?.hasError('required')">celular requerido</span>
-          <span *ngIf="form.get('celular')?.hasError('nove')">celular precisa começar com 9</span>
-        
-          <p>Telefone</p>
-          <input type="text" formControlName="telefone" placeholder="telefone" bTelefone>
-          
-          <span *ngIf="form.get('telefone')?.hasError('telefone')">telefone inválido</span><br>
-          <span *ngIf="form.get('telefone')?.hasError('required')">telefone requerido</span>
+	
+	
+
+    <form [formGroup]="form" style="width: 70%; margin: auto; margin-top: 50px;">
+      <div style="display: flex; justify-content: space-around; flex-wrap: wrap; width: 100%;">
+    
+        <div style="margin-top: 20px; width: 33%; text-align: center;">
+          <mat-form-field appearance="outline">
+            <mat-label>CPF</mat-label>
+            <input matInput placeholder="CPF" formControlName="cpf" bCpf>
+            <mat-error *ngIf="form.get('cpf')?.hasError('cpf')">CPF inválido</mat-error>
+            <mat-error *ngIf="form.get('cpf')?.hasError('required')">CPF é obrigatório</mat-error>
+          </mat-form-field>
         </div>
     
-        <div>
-          <p>CEP</p>
-          <input type="text" formControlName="cep" placeholder="cep" id="cep" bCep>
-          <br><br>
-          <span *ngIf="form.get('cep')?.hasError('cep')">cep inválido</span><br>
-          <span *ngIf="form.get('cep')?.hasError('required')">cep requerido</span>
+        <div style="margin-top: 20px; width: 33%; text-align: center;">
+          <mat-form-field appearance="outline">
+            <mat-label>Celular</mat-label>
+            <input matInput placeholder="Celular" formControlName="celular">
+            <mat-error *ngIf="form.get('celular')?.hasError('celular')">Celular inválido</mat-error>
+            <mat-error *ngIf="form.get('celular')?.hasError('nove')">Celular precisa começar com 9</mat-error>
+            <mat-error *ngIf="form.get('celular')?.hasError('required')">Celular é obrigatório</mat-error>
+          </mat-form-field>
         </div>
+    
+        <div style="margin-top: 20px; width: 33%; text-align: center;">
+          <mat-form-field appearance="outline">
+            <mat-label>Só Numero</mat-label>
+            <input matInput placeholder="Celular" formControlName="soNumeros" bSoNumeroSemEspaco>
+          </mat-form-field>
+        </div>
+    
+        <div style="margin-top: 20px; width: 33%; text-align: center;">
+          <mat-form-field appearance="outline">
+            <mat-label>Só Letras com Espaço</mat-label>
+            <input matInput placeholder="Celular" formControlName="soLetrasComEspaco" bSoLetrasComEspaco>
+          </mat-form-field>
+        </div>
+    
+        <div style="margin-top: 20px; width: 33%; text-align: center;">
+          <mat-form-field appearance="outline">
+            <mat-label>Data</mat-label>
+            <input matInput placeholder="Data" formControlName="data" bData [ano4Digitos]="true">
+            <mat-error *ngIf="form.get('data')?.hasError('required')">Data é obrigatória</mat-error>
+            <mat-error *ngIf="form.get('data')?.hasError('data')">Data Inválida </mat-error>
+            <mat-error *ngIf="form.get('data')?.hasError('min')">Data precisa ser maior que {{ dataMin }}</mat-error>
+            <mat-error *ngIf="form.get('data')?.hasError('max')">Data precisa ser menor que {{ dataMax }}</mat-error>
+            <mat-error *ngIf="form.get('data')?.hasError('range')">Data precisa ser maior que {{ dataMin }} e menor que {{
+              dataMax }}</mat-error>
+          </mat-form-field>
+        </div>
+    
+        <div style="margin-top: 20px; width: 33%; text-align: center;">
+          <mat-form-field appearance="outline">
+            <mat-label>Titulo Eleitor</mat-label>
+            <input matInput placeholder="Titulo Eleitor" formControlName="titulo" bTituloEleitor>
+            <mat-error *ngIf="form.get('titulo')?.hasError('required')">Titulo é obrigatório</mat-error>
+            <mat-error *ngIf="form.get('titulo')?.hasError('titulo')">Titulo inválido</mat-error>
+          </mat-form-field>
+        </div>
+    
+        <div style="width: 100%; text-align: center; margin-top: 30px;">
+          <button type="button" [disabled]="form.invalid" mat-raised-button color="primary">Form Válido</button>
+        </div>
+      </div>
+    
+    </form>
+
+#### Validação de Data
+Sobre a validação de data há agora 4 possíbilidades de validar.
+1 - Simples validação se é um data válida.
+2 - Se a data é superior a mínima
+3 - Se é inferior a máxima
+4 - Se está dentro do range.
+
+OBS:
+1º parâmetro é se é um campo obrigatório como todas as validações
+2º parâmetro é se o ano deve ter 4 dígitos (padrão true), mudando para false irá aceitar tanto 2 quanto 4. Exemplo: *26/07/23 ou 26/07/2023*
+
+Diretiva é chamada: bData
+
+    data: ['', ValidacaoBrasil.data(true, true, this.dataMin, this.dataMax)],
+
+Por padrão, dataMin e dataMax são null. Se colocar só o dataMin será validado somente o inicio, se colocar somente o dataMax será validado somente o final e se colocar os dois será validade o range.
+
+
+
+    <mat-form-field appearance="outline">
+            <mat-label>Data</mat-label>
+            <input matInput placeholder="Data" formControlName="data" bData [ano4Digitos]="true">
+            <mat-error *ngIf="form.get('data')?.hasError('required')">Data é obrigatória</mat-error>
+            <mat-error *ngIf="form.get('data')?.hasError('data')">Data Inválida </mat-error>
+            <mat-error *ngIf="form.get('data')?.hasError('min')">Data precisa ser maior que {{ dataMin }}</mat-error>
+            <mat-error *ngIf="form.get('data')?.hasError('max')">Data precisa ser menor que {{ dataMax }}</mat-error>
+            <mat-error *ngIf="form.get('data')?.hasError('range')">Data precisa ser maior que {{ dataMin }} e menor que {{
+              dataMax }}</mat-error>
+          </mat-form-field>
+
+para uma data simples inválidade é retornado um:
+    { data: true }
+	
+quando a data é inferior ao minData é retornado:
+    { min: true }
+	
+quando a data é superior ao maxData é retornado:
+    { max: true }
+	
+quando a data é inferior ao minData ou superior ao dataMax é retornado:
+    { range: true }
+	
+#### Validação Titulo Eleitor
+Quando há um erro no numero do título é retornado:
+{ titulo: true }
+
+Diretiva é chamada: bTituloEleitor
+
 
 
 
